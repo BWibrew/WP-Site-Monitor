@@ -1,0 +1,21 @@
+{
+    "name": "bwibrew/wp-site-monitor",
+    "description": "Provides extra WP REST API endpoints to help manage sites remotely.",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Benjamin Wibrew",
+            "email": "benjamin.wibrew@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}
