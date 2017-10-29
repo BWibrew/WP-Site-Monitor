@@ -10,4 +10,7 @@
  * License URI:  http://opensource.org/licenses/MIT
  * Text Domain:  wp-site-monitor
  * Domain Path:  /languages
+ *
+ * @package WP_Site_Monitor
  */
+
