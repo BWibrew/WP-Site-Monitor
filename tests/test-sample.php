@@ -2,7 +2,7 @@
 /**
  * Class SampleTest
  *
- * @package Test
+ * @package WP_Site_Monitor
  */
 
 /**
