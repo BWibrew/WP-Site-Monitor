@@ -11,6 +11,38 @@
  * Text Domain:  wp-site-monitor
  * Domain Path:  /languages
  *
- * @package WP_Site_Monitor
+ * @wordpress-plugin
+ * @package WPSiteMonitor\Bootstrap
+ * @link https://github.com/BWibrew/WP-Site-Monitor/
+ * @since 1.0.0
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
+if ( ! defined( 'WPSM_FILE' ) ) {
+	define( 'WPSM_FILE', __FILE__ );
+}
+
+/**
+ * Activate WP Site Monitor plugin
+ */
+function activate_wp_site_monitor() {
+	require_once plugin_dir_path( WPSM_FILE ) . 'src/class-activator.php';
+	\WPSiteMonitor\Activator::activate();
+}
+
+/**
+ * Deactivate WP Site Monitor plugin
+ */
+function deactivate_wp_site_monitor() {
+	require_once plugin_dir_path( WPSM_FILE ) . 'src/class-deactivator.php';
+	\WPSiteMonitor\Deactivator::deactivate();
+}
+
+register_activation_hook( WPSM_FILE, 'activate_wp_site_monitor' );
+register_deactivation_hook( WPSM_FILE, 'deactivate_wp_site_monitor' );
+
+require plugin_dir_path( WPSM_FILE ) . 'src/class-wp-site-monitor.php';
