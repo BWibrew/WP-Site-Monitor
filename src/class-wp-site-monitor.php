@@ -22,5 +22,38 @@ namespace WPSiteMonitor;
  * @package WPSiteMonitor
  */
 class WP_Site_Monitor {
+	/**
+	 * Define the core functionality of the plugin.
+	 */
+	public function __construct() {
+		$this->init();
+	}
 
+	/**
+	 * Initialise plugin files.
+	 */
+	public static function init() {
+	}
+
+	/**
+	 * Fired during plugin activation
+	 */
+	public static function activate() {
+	}
+
+	/**
+	 * Fired during plugin deactivation
+	 */
+	public static function deactivate() {
+	}
+
+	/**
+	 * Fired during plugin deletion
+	 */
+	public static function uninstall() {
+	}
+
+	public function display_settings() {
+
+	}
 }

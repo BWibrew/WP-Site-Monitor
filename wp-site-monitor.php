@@ -26,23 +26,16 @@ if ( ! defined( 'WPSM_FILE' ) ) {
 	define( 'WPSM_FILE', __FILE__ );
 }
 
-/**
- * Activate WP Site Monitor plugin
- */
-function activate_wp_site_monitor() {
-	require_once plugin_dir_path( WPSM_FILE ) . 'src/class-activator.php';
-	\WPSiteMonitor\Activator::activate();
+if ( ! defined( 'WPSM_PATH' ) ) {
+	define( 'WPSM_PATH', plugin_dir_path( WPSM_FILE ) );
 }
 
-/**
- * Deactivate WP Site Monitor plugin
- */
-function deactivate_wp_site_monitor() {
-	require_once plugin_dir_path( WPSM_FILE ) . 'src/class-deactivator.php';
-	\WPSiteMonitor\Deactivator::deactivate();
-}
+define( 'WP_SITE_MONITOR_VERSION', '0.1.0' );
 
-register_activation_hook( WPSM_FILE, 'activate_wp_site_monitor' );
-register_deactivation_hook( WPSM_FILE, 'deactivate_wp_site_monitor' );
+require_once WPSM_PATH . 'src/class-wp-site-monitor.php';
 
-require plugin_dir_path( WPSM_FILE ) . 'src/class-wp-site-monitor.php';
+register_activation_hook( WPSM_FILE, array( '\WPSiteMonitor\WP_Site_Monitor', 'activate' ) );
+register_deactivation_hook( WPSM_FILE, array( '\WPSiteMonitor\WP_Site_Monitor', 'deactivate' ) );
+register_uninstall_hook( WPSM_FILE, array( '\WPSiteMonitor\WP_Site_Monitor', 'uninstall' ) );
+
+\WPSiteMonitor\WP_Site_Monitor::init();
