@@ -51,16 +51,15 @@ before_script:
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
       travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
-      ./vendor/bin/phpcs
     fi
 
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      phpunit
+      ./vendor/bin/phpunit
       WP_MULTISITE=1 phpunit
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      phpcs
+      ./vendor/bin/phpcs
     fi
