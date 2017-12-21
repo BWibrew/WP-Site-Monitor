@@ -18,4 +18,6 @@
 	<file>src</file>
 	<file>wp-site-monitor.php</file>
 
+	<!-- Exclude these files -->
+	<exclude-pattern>src/index.php</exclude-pattern>
 </ruleset>

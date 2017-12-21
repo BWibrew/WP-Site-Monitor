@@ -38,4 +38,4 @@ register_activation_hook( WPSM_FILE, array( '\WPSiteMonitor\WP_Site_Monitor', 'a
 register_deactivation_hook( WPSM_FILE, array( '\WPSiteMonitor\WP_Site_Monitor', 'deactivate' ) );
 register_uninstall_hook( WPSM_FILE, array( '\WPSiteMonitor\WP_Site_Monitor', 'uninstall' ) );
 
-\WPSiteMonitor\WP_Site_Monitor::init();
+new \WPSiteMonitor\WP_Site_Monitor();
