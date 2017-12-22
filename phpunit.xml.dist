@@ -4,11 +4,16 @@
 	colors="true"
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
-	convertWarningsToExceptions="true"
-	>
+	convertWarningsToExceptions="true">
 	<testsuites>
 		<testsuite>
 			<directory prefix="test-" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">./src</directory>
+			<file>./wp-site-monitor.php</file>
+		</whitelist>
+	</filter>
 </phpunit>
