@@ -50,7 +50,6 @@ class Settings_Menu {
 		$this->settings_page = 'wp_site_monitor';
 		$this->option_group  = $this->settings_page;
 
-		require_once WPSM_PATH . 'src/class-hook-loader.php';
 		$this->loader = new Hook_Loader();
 
 		$this->loader->add_action( 'admin_init', $this, 'init_settings' );

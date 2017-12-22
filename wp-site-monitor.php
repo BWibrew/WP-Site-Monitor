@@ -32,7 +32,7 @@ if ( ! defined( 'WPSM_PATH' ) ) {
 
 define( 'WP_SITE_MONITOR_VERSION', '0.1.0' );
 
-require_once WPSM_PATH . 'src/class-wp-site-monitor.php';
+require_once WPSM_PATH . 'vendor/autoload.php';
 
 register_activation_hook( WPSM_FILE, array( '\WPSiteMonitor\WP_Site_Monitor', 'activate' ) );
 register_deactivation_hook( WPSM_FILE, array( '\WPSiteMonitor\WP_Site_Monitor', 'deactivate' ) );

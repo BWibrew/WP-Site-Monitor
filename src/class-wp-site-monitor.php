@@ -16,9 +16,6 @@
 
 namespace WPSiteMonitor;
 
-require_once WPSM_PATH . 'src/class-hook-loader.php';
-require_once WPSM_PATH . 'src/class-settings-menu.php';
-
 /**
  * Class WP_Site_Monitor
  *

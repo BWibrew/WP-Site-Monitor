@@ -17,6 +17,16 @@
         "wimg/php-compatibility": "^8.0",
         "wp-coding-standards/wpcs": "^0.14.0"
     },
+    "autoload": {
+        "psr-4": {
+            "WPSiteMonitor\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "scripts": {
         "lint": [
           "vendor/bin/phpcs"
