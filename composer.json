@@ -17,6 +17,17 @@
         "wimg/php-compatibility": "^8.0",
         "wp-coding-standards/wpcs": "^0.14.0"
     },
+    "scripts": {
+        "lint": [
+          "vendor/bin/phpcs"
+        ],
+        "test": [
+          "vendor/bin/phpunit"
+        ],
+        "install-tests": [
+          "bin/install-wp-tests.sh wordpress_test homestead secret"
+        ]
+    },
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,

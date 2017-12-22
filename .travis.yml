@@ -56,10 +56,14 @@ before_script:
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      ./vendor/bin/phpunit
+      vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
       WP_MULTISITE=1 phpunit
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      ./vendor/bin/phpcs
+      vendor/bin/phpcs
     fi
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
