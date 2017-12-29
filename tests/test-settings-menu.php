@@ -1,6 +1,6 @@
 <?php
 /**
- * Class SettingsPageTest
+ * Class SettingsMenuTest
  *
  * @package WPSiteMonitor
  * @since 1.0.0
@@ -9,7 +9,7 @@
 /**
  * Settings Page test case.
  */
-class SettingsPageTest extends WP_UnitTestCase {
+class SettingsMenuTest extends WP_UnitTestCase {
 
 	function setUp() {
 		parent::setUp();
