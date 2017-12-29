@@ -64,26 +64,21 @@ class Settings_Menu {
 	 * @since 1.0.0
 	 */
 	public function init_settings() {
-		register_setting( $this->option_group, 'wp_site_monitor_test_option' );
+		register_setting( $this->option_group, 'wp_site_monitor_enable' );
 
 		add_settings_section(
-			'wp_site_monitor',
-			__( 'Available API data', 'wp-site-monitor' ),
+			'wp_site_monitor_enable_section',
+			__( 'Enable/Disable WP Site Monitor', 'wp-site-monitor' ),
 			array( $this, 'setting_section_html' ),
 			$this->settings_page
 		);
 
 		add_settings_field(
-			'wp_site_monitor_test_option',
-			__( 'Test Input', 'wp-site-monitor' ),
+			'wp_site_monitor_enable',
+			__( 'Enable WP Site Monitor', 'wp-site-monitor' ),
 			array( $this, 'setting_input_html' ),
 			$this->settings_page,
-			'wp_site_monitor',
-			[
-				'label_for'         => 'wporg_field_pill',
-				'class'             => 'wporg_row',
-				'wporg_custom_data' => 'custom',
-			]
+			'wp_site_monitor_enable_section'
 		);
 	}
 
@@ -141,19 +136,16 @@ class Settings_Menu {
 	/**
 	 * Form inputs.
 	 *
-	 * @param array $args Element parameters.
-	 *
 	 * @since 1.0.0
 	 */
-	public function setting_input_html( $args ) {
+	public function setting_input_html() {
 		?>
-		<input type="text"
-			name="wp_site_monitor_test_option"
-			id="wp_site_monitor_test_option"
-			value="<?php echo get_option( 'wp_site_monitor_test_option' ) ? esc_attr( get_option( 'wp_site_monitor_test_option' ) ) : ''; ?>" />
+		<input type="checkbox"
+			name="wp_site_monitor_enable"
+			id=""<?php checked( get_option( 'wp_site_monitor_enable' ), 1 ); ?> value="1">
 
 		<p class="description">
-			<?php esc_html_e( 'This is a test setting', 'wp-site-monitor' ); ?>
+			<?php esc_html_e( 'This checkbox enables/disables all plugin functionality.', 'wp-site-monitor' ); ?>
 		</p>
 		<?php
 	}

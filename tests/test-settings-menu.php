@@ -35,4 +35,19 @@ class SettingsMenuTest extends WP_UnitTestCase {
 		$this->assertEquals( 'WP Site Monitor Settings', $submenu['options-general.php'][0][3] );
 		$this->assertEquals( 'WP Site Monitor', $submenu['options-general.php'][0][0] );
 	}
+
+	/**
+	 * Assert that the enable/disable toggle is registered with the settings API.
+	 */
+	public function test_enable_option_is_created() {
+		global $new_whitelist_options, $wp_settings_sections, $wp_settings_fields;
+		$this->settings_menu->init_settings();
+
+		$section_id = 'wp_site_monitor_enable_section';
+		$this->assertContains('wp_site_monitor_enable', $new_whitelist_options[$this->menu_slug] );
+		$this->assertEquals( $section_id, $wp_settings_sections[$this->menu_slug][$section_id]['id'] );
+		$this->assertEquals( 'Enable/Disable WP Site Monitor', $wp_settings_sections[$this->menu_slug][$section_id]['title'] );
+		$this->assertEquals( 'wp_site_monitor_enable', $wp_settings_fields[$this->menu_slug][$section_id]['wp_site_monitor_enable']['id'] );
+		$this->assertEquals( 'Enable WP Site Monitor', $wp_settings_fields[$this->menu_slug][$section_id]['wp_site_monitor_enable']['title'] );
+	}
 }
