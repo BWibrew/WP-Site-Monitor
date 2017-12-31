@@ -64,6 +64,7 @@ class WP_Site_Monitor {
 	 * @since 1.0.0
 	 */
 	public static function deactivate() {
+		unregister_setting( 'wp_site_monitor', 'wp_site_monitor_enable' );
 	}
 
 	/**
@@ -72,5 +73,6 @@ class WP_Site_Monitor {
 	 * @since 1.0.0
 	 */
 	public static function uninstall() {
+		delete_option( 'wp_site_monitor_enable' );
 	}
 }

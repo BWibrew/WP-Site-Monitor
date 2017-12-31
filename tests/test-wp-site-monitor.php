@@ -1,0 +1,51 @@
+<?php
+/**
+ * Class WPSiteMonitorTest
+ *
+ * @package WPSiteMonitor
+ * @since 1.0.0
+ */
+
+use WPSiteMonitor\Settings_Menu;
+use WPSiteMonitor\WP_Site_Monitor;
+
+/**
+ * WP Site Monitor test case.
+ */
+class WPSiteMonitor extends WP_UnitTestCase {
+
+	const OPTION_NAME = 'wp_site_monitor_enable';
+
+	public function setUp() {
+		parent::setUp();
+
+		(new Settings_Menu)->init_settings();
+	}
+
+	/**
+	 * Assert that the plugin settings are unregistered on plugin deactivation.
+	 */
+	public function test_settings_unregistered_when_plugin_deactivated() {
+		global $wp_registered_settings;
+
+		$this->assertArrayHasKey(self::OPTION_NAME, $wp_registered_settings );
+
+		WP_Site_Monitor::deactivate();
+
+		$this->assertArrayNotHasKey(self::OPTION_NAME, $wp_registered_settings );
+	}
+
+	/**
+	 * Assert that the plugin settings are removed on plugin uninstall.
+	 */
+	public function test_settings_removed_on_plugin_uninstall() {
+		global $wpdb;
+		update_option( self::OPTION_NAME, 1 );
+
+		WP_Site_Monitor::uninstall();
+
+		$option = self::OPTION_NAME;
+		$row = $wpdb->get_row( $wpdb->prepare( "SELECT autoload FROM $wpdb->options WHERE option_name = %s", $option ) );
+		$this->assertNull( $row );
+	}
+}
