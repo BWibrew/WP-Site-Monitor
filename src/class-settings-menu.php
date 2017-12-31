@@ -18,6 +18,14 @@ namespace WPSiteMonitor;
 class Settings_Menu {
 
 	/**
+	 * The setting option name.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+	const OPTION_NAME = 'wp_site_monitor_enable';
+
+	/**
 	 * The loader that's responsible for registering all hooks and filters.
 	 *
 	 * @var Hook_Loader
@@ -64,21 +72,21 @@ class Settings_Menu {
 	 * @since 1.0.0
 	 */
 	public function init_settings() {
-		register_setting( $this->option_group, 'wp_site_monitor_enable' );
+		register_setting( $this->option_group, self::OPTION_NAME );
 
 		add_settings_section(
-			'wp_site_monitor_enable_section',
+			self::OPTION_NAME . '_section',
 			__( 'Enable/Disable WP Site Monitor', 'wp-site-monitor' ),
 			array( $this, 'setting_section_html' ),
 			$this->settings_page
 		);
 
 		add_settings_field(
-			'wp_site_monitor_enable',
+			self::OPTION_NAME,
 			__( 'Enable WP Site Monitor', 'wp-site-monitor' ),
 			array( $this, 'setting_input_html' ),
 			$this->settings_page,
-			'wp_site_monitor_enable_section'
+			self::OPTION_NAME . '_section'
 		);
 	}
 
@@ -141,8 +149,8 @@ class Settings_Menu {
 	public function setting_input_html() {
 		?>
 		<input type="checkbox"
-			name="wp_site_monitor_enable"
-			id=""<?php checked( get_option( 'wp_site_monitor_enable' ), 1 ); ?> value="1">
+			name="<?php esc_attr( self::OPTION_NAME ); ?>"
+			id=""<?php checked( get_option( self::OPTION_NAME ), 1 ); ?> value="1">
 
 		<p class="description">
 			<?php esc_html_e( 'This checkbox enables/disables all plugin functionality.', 'wp-site-monitor' ); ?>
