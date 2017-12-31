@@ -3,6 +3,7 @@
 .editorconfig
 .git
 .gitignore
+.gitattributes
 .travis.yml
 bin
 phpunit.xml
