@@ -59,14 +59,6 @@ class WP_Site_Monitor {
 	}
 
 	/**
-	 * Fired during plugin activation.
-	 *
-	 * @since 1.0.0
-	 */
-	public static function activate() {
-	}
-
-	/**
 	 * Fired during plugin deactivation,
 	 *
 	 * @since 1.0.0

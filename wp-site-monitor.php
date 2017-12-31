@@ -34,7 +34,6 @@ define( 'WP_SITE_MONITOR_VERSION', '0.1.0' );
 
 require_once WPSM_PATH . 'vendor/autoload.php';
 
-register_activation_hook( WPSM_FILE, array( '\WPSiteMonitor\WP_Site_Monitor', 'activate' ) );
 register_deactivation_hook( WPSM_FILE, array( '\WPSiteMonitor\WP_Site_Monitor', 'deactivate' ) );
 register_uninstall_hook( WPSM_FILE, array( '\WPSiteMonitor\WP_Site_Monitor', 'uninstall' ) );
 
