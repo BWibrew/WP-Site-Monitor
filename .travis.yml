@@ -24,11 +24,6 @@ matrix:
       env: WP_VERSION=latest
     - php: 7.2
       env: WP_VERSION=latest
-    - php: nightly
-      env: WP_VERSION=latest
-  fast_finish: true
-  allow_failures:
-    - php: nightly
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
