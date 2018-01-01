@@ -18,14 +18,6 @@ namespace WPSiteMonitor;
 class Settings_Menu {
 
 	/**
-	 * The setting option name.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-	const OPTION_NAME = 'wp_site_monitor_enable';
-
-	/**
 	 * The loader that's responsible for registering all hooks and filters.
 	 *
 	 * @var Hook_Loader
@@ -34,30 +26,11 @@ class Settings_Menu {
 	protected $loader;
 
 	/**
-	 * Settings page slug.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-	protected $settings_page;
-
-	/**
-	 * Setting options group name.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-	protected $option_group;
-
-	/**
 	 * Initialise the plugin settings and menus.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->settings_page = 'wp_site_monitor';
-		$this->option_group  = $this->settings_page;
-
 		$this->loader = new Hook_Loader();
 
 		$this->loader->add_action( 'admin_init', $this, 'init_settings' );
@@ -72,21 +45,21 @@ class Settings_Menu {
 	 * @since 1.0.0
 	 */
 	public function init_settings() {
-		register_setting( $this->option_group, self::OPTION_NAME );
+		register_setting( WP_Site_Monitor::OPTION_GROUP, WP_Site_Monitor::OPTION_NAME );
 
 		add_settings_section(
-			self::OPTION_NAME . '_section',
+			WP_Site_Monitor::OPTION_NAME . '_section',
 			__( 'Enable/Disable WP Site Monitor', 'wp-site-monitor' ),
 			array( $this, 'setting_section_html' ),
-			$this->settings_page
+			WP_Site_Monitor::OPTION_GROUP
 		);
 
 		add_settings_field(
-			self::OPTION_NAME,
+			WP_Site_Monitor::OPTION_NAME,
 			__( 'Enable WP Site Monitor', 'wp-site-monitor' ),
 			array( $this, 'setting_input_html' ),
-			$this->settings_page,
-			self::OPTION_NAME . '_section'
+			WP_Site_Monitor::OPTION_GROUP,
+			WP_Site_Monitor::OPTION_NAME . '_section'
 		);
 	}
 
@@ -100,7 +73,7 @@ class Settings_Menu {
 			__( 'WP Site Monitor Settings', 'wp-site-monitor' ),
 			__( 'WP Site Monitor', 'wp-site-monitor' ),
 			'manage_options',
-			$this->settings_page,
+			WP_Site_Monitor::OPTION_GROUP,
 			array( $this, 'settings_page_html' )
 		);
 	}
@@ -119,8 +92,8 @@ class Settings_Menu {
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<form action="options.php" method="POST">
 				<?php
-				settings_fields( $this->option_group );
-				do_settings_sections( $this->settings_page );
+				settings_fields( WP_Site_Monitor::OPTION_GROUP );
+				do_settings_sections( WP_Site_Monitor::OPTION_GROUP );
 				submit_button();
 				?>
 			</form>
@@ -149,8 +122,8 @@ class Settings_Menu {
 	public function setting_input_html() {
 		?>
 		<input type="checkbox"
-			name="<?php esc_attr( self::OPTION_NAME ); ?>"
-			id=""<?php checked( get_option( self::OPTION_NAME ), 1 ); ?> value="1">
+			name="<?php esc_attr( WP_Site_Monitor::OPTION_NAME ); ?>"
+			id=""<?php checked( get_option( WP_Site_Monitor::OPTION_NAME ), 1 ); ?> value="1">
 
 		<p class="description">
 			<?php esc_html_e( 'This checkbox enables/disables all plugin functionality.', 'wp-site-monitor' ); ?>

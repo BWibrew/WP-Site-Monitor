@@ -24,6 +24,22 @@ namespace WPSiteMonitor;
 class WP_Site_Monitor {
 
 	/**
+	 * Setting options group name.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+	const OPTION_GROUP = 'wp_site_monitor';
+
+	/**
+	 * The setting option name.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+	const OPTION_NAME = self::OPTION_GROUP . '_enable';
+
+	/**
 	 * The loader that's responsible for registering all hooks and filters.
 	 *
 	 * @var Hook_Loader $loader Maintains and registers all hooks for the plugin.
