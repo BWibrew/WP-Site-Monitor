@@ -6,20 +6,18 @@
  * @since 1.0.0
  */
 
-use WPSiteMonitor\API;
+use Tests\Test_Case;
 
 /**
  * API test case.
  */
-class APITest extends WP_UnitTestCase {
+class APITest extends Test_Case {
 
-	protected $api;
 	protected $server;
 
 	public function setUp() {
 		parent::setUp();
 
-		$this->api = new API();
 		$this->server = rest_get_server();
 	}
 

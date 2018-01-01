@@ -6,19 +6,19 @@
  * @since 1.0.0
  */
 
+use Tests\Test_Case;
 use WPSiteMonitor\Settings_Menu;
 use WPSiteMonitor\WP_Site_Monitor;
 
 /**
  * WP Site Monitor test case.
  */
-class WPSiteMonitor extends WP_UnitTestCase {
-
-	const OPTION_NAME = 'wp_site_monitor_enable';
+class WPSiteMonitor extends Test_Case {
 
 	public function setUp() {
 		parent::setUp();
 
+		new WP_Site_Monitor();
 		(new Settings_Menu)->init_settings();
 	}
 
