@@ -26,6 +26,14 @@ class APITest extends Test_Case {
 	 */
 	public function test_rest_api_plugin_route_exists() {
 		$routes = $this->server->get_routes();
-		$this->assertArrayHasKey( '/wp-site-monitor/v1', $routes );
+		$this->assertArrayHasKey( self::API_NAMESPACE, $routes );
+	}
+
+	/**
+	 * Assert that WordPress version endpoint exists.
+	 */
+	public function test_wp_version_endpoint_exists() {
+		$routes = $this->server->get_routes();
+		$this->assertArrayHasKey( self::API_NAMESPACE . '/wp-version', $routes );
 	}
 }
