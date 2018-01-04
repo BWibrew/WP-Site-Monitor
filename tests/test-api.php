@@ -7,6 +7,7 @@
  */
 
 use Tests\Test_Case;
+use WPSiteMonitor\API;
 
 /**
  * API test case.
@@ -18,10 +19,13 @@ class APITest extends Test_Case {
 	 */
 	protected $server;
 
+	protected $api;
+
 	public function setUp() {
 		parent::setUp();
 
 		$this->server = rest_get_server();
+		$this->api = new API();
 	}
 
 	/**
@@ -40,5 +44,22 @@ class APITest extends Test_Case {
 		$routes = $this->server->get_routes();
 
 		$this->assertArrayHasKey( '/' . self::API_NAMESPACE . '/wp-version', $routes );
+	}
+
+	/**
+	 * Assert that 'wp-version' endpoint returns the version number.
+	 */
+	public function test_wp_version_is_returned() {
+		global $wp_version;
+		$returned_version = $this->api->get_wp_version();
+
+		$this->assertEquals( $wp_version, $returned_version );
+	}
+
+	/**
+	 * Assert that 'wp-version' endpoint requires authentication.
+	 */
+	public function test_wp_version_requires_authentication() {
+		$this->assertFalse( $this->api->check_permissions() );
 	}
 }

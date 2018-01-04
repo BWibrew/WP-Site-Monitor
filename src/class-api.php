@@ -22,21 +22,44 @@ class API extends WP_REST_Controller {
 
 	/**
 	 * Register the routes for the objects of the controller.
+	 *
+	 * @since 1.0.0
 	 */
 	public function register_routes() {
 		$version   = '1';
 		$namespace = 'wp-site-monitor/v' . $version;
-		$base      = 'wp-version';
+		$endpoint  = 'wp-version';
 
 		register_rest_route(
-			$namespace, '/' . $base, array(
+			$namespace, '/' . $endpoint, array(
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_wp_version' ),
-					'permission_callback' => array( $this, 'check_permission' ),
-					'args'                => array(),
+					'permission_callback' => array( $this, 'check_permissions' ),
 				),
 			)
 		);
+	}
+
+	/**
+	 * Get the current WordPress version number.
+	 *
+	 * @return string
+	 * @since 1.0.0
+	 */
+	public function get_wp_version() {
+		global $wp_version;
+
+		return $wp_version;
+	}
+
+	/**
+	 * Check if the authenticated user has permission to use an endpoint.
+	 *
+	 * @return boolean
+	 * @since 1.0.0
+	 */
+	public function check_permissions() {
+		return current_user_can( 'manage_options' );
 	}
 }
