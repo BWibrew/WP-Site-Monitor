@@ -13,6 +13,9 @@ use Tests\Test_Case;
  */
 class APITest extends Test_Case {
 
+	/**
+	 * @var WP_REST_Server;
+	 */
 	protected $server;
 
 	public function setUp() {
@@ -22,11 +25,12 @@ class APITest extends Test_Case {
 	}
 
 	/**
-	 * Assert that REST API route for the plugin exist.
+	 * Assert that REST API namespace for the plugin exists.
 	 */
-	public function test_rest_api_plugin_route_exists() {
-		$routes = $this->server->get_routes();
-		$this->assertArrayHasKey( self::API_NAMESPACE, $routes );
+	public function test_rest_api_plugin_namespace_exists() {
+		$namespaces = $this->server->get_namespaces();
+
+		$this->assertContains( self::API_NAMESPACE, $namespaces );
 	}
 
 	/**
@@ -34,6 +38,7 @@ class APITest extends Test_Case {
 	 */
 	public function test_wp_version_endpoint_exists() {
 		$routes = $this->server->get_routes();
-		$this->assertArrayHasKey( self::API_NAMESPACE . '/wp-version', $routes );
+
+		$this->assertArrayHasKey( '/' . self::API_NAMESPACE . '/wp-version', $routes );
 	}
 }
