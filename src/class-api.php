@@ -56,7 +56,7 @@ class API extends WP_REST_Controller {
 	/**
 	 * Check if the authenticated user has permission to use an endpoint.
 	 *
-	 * @return boolean
+	 * @return bool
 	 * @since 1.0.0
 	 */
 	public function check_permissions() {
