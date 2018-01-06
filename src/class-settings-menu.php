@@ -18,28 +18,6 @@ namespace WPSiteMonitor;
 class Settings_Menu {
 
 	/**
-	 * The loader that's responsible for registering all hooks and filters.
-	 *
-	 * @var Hook_Loader
-	 * @since 1.0.0
-	 */
-	protected $loader;
-
-	/**
-	 * Initialise the plugin settings and menus.
-	 *
-	 * @since 1.0.0
-	 */
-	public function __construct() {
-		$this->loader = new Hook_Loader();
-
-		$this->loader->add_action( 'admin_init', $this, 'init_settings' );
-		$this->loader->add_action( 'admin_menu', $this, 'display_settings_page' );
-
-		$this->loader->run();
-	}
-
-	/**
 	 * Initialise plugin settings.
 	 *
 	 * @since 1.0.0

@@ -65,15 +65,19 @@ class WP_Site_Monitor {
 	 */
 	public function init() {
 		if ( is_admin() ) {
-			new Settings_Menu();
+			$menu = new Settings_Menu();
+
+			$this->loader->add_action( 'admin_init', $menu, 'init_settings' );
+			$this->loader->add_action( 'admin_menu', $menu, 'display_settings_page' );
 		}
 
 		if ( get_option( self::OPTION_NAME ) ) {
 			$api = new API();
 
 			$this->loader->add_action( 'rest_api_init', $api, 'register_routes' );
-			$this->loader->run();
 		}
+
+		$this->loader->run();
 	}
 
 	/**
