@@ -68,10 +68,12 @@ class WP_Site_Monitor {
 			new Settings_Menu();
 		}
 
-		$api = new API();
+		if ( get_option( self::OPTION_NAME ) ) {
+			$api = new API();
 
-		$this->loader->add_action( 'rest_api_init', $api, 'register_routes' );
-		$this->loader->run();
+			$this->loader->add_action( 'rest_api_init', $api, 'register_routes' );
+			$this->loader->run();
+		}
 	}
 
 	/**
