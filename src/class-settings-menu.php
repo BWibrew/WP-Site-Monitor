@@ -100,8 +100,9 @@ class Settings_Menu {
 	public function setting_input_html() {
 		?>
 		<input type="checkbox"
-			name="<?php esc_attr( WP_Site_Monitor::OPTION_NAME ); ?>"
-			id=""<?php checked( get_option( WP_Site_Monitor::OPTION_NAME ), 1 ); ?> value="1">
+			id="<?php echo esc_attr( WP_Site_Monitor::OPTION_NAME ); ?>"
+			name="<?php echo esc_attr( WP_Site_Monitor::OPTION_NAME ); ?>"
+			<?php checked( get_option( WP_Site_Monitor::OPTION_NAME ), 1 ); ?> value="1">
 
 		<p class="description">
 			<?php esc_html_e( 'This checkbox enables/disables all plugin functionality.', 'wp-site-monitor' ); ?>
