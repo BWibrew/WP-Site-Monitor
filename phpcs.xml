@@ -16,6 +16,7 @@
 
 	<!-- Scan these files -->
 	<file>src</file>
+	<file>templates</file>
 	<file>wp-site-monitor.php</file>
 
 	<!-- Exclude these files -->

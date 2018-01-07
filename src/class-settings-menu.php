@@ -65,18 +65,8 @@ class Settings_Menu {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		?>
-		<div class="wrap">
-			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<form action="options.php" method="POST">
-				<?php
-				settings_fields( WP_Site_Monitor::OPTION_GROUP );
-				do_settings_sections( WP_Site_Monitor::OPTION_GROUP );
-				submit_button();
-				?>
-			</form>
-		</div>
-		<?php
+
+		require_once WPSM_PATH . 'templates/settings-page.php';
 	}
 
 	/**
@@ -87,9 +77,7 @@ class Settings_Menu {
 	 * @since 1.0.0
 	 */
 	public function setting_section_html( $args ) {
-		?>
-		<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Use these options to control which extra data is available over the REST API.', 'wp-site-monitor' ); ?></p>
-		<?php
+		require_once WPSM_PATH . 'templates/setting-section.php';
 	}
 
 	/**
@@ -98,15 +86,6 @@ class Settings_Menu {
 	 * @since 1.0.0
 	 */
 	public function setting_input_html() {
-		?>
-		<input type="checkbox"
-			id="<?php echo esc_attr( WP_Site_Monitor::OPTION_NAME ); ?>"
-			name="<?php echo esc_attr( WP_Site_Monitor::OPTION_NAME ); ?>"
-			<?php checked( get_option( WP_Site_Monitor::OPTION_NAME, true ), 1 ); ?> value="1">
-
-		<p class="description">
-			<?php esc_html_e( 'This checkbox enables/disables all plugin functionality.', 'wp-site-monitor' ); ?>
-		</p>
-		<?php
+		require_once WPSM_PATH . 'templates/setting-input.php';
 	}
 }

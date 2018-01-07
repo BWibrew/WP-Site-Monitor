@@ -15,6 +15,9 @@ use WPSiteMonitor\WP_Site_Monitor;
  */
 class SettingsMenuTest extends Test_Case {
 
+	/**
+	 * @var Settings_Menu
+	 */
 	protected $settings_menu;
 
 	public function setUp() {
@@ -73,5 +76,44 @@ class SettingsMenuTest extends Test_Case {
 		$this->assertEquals( 'Enable/Disable WP Site Monitor', $wp_settings_sections[self::OPTION_GROUP][$section_id]['title'] );
 		$this->assertEquals( self::OPTION_NAME, $wp_settings_fields[self::OPTION_GROUP][$section_id][self::OPTION_NAME]['id'] );
 		$this->assertEquals( 'Enable WP Site Monitor', $wp_settings_fields[self::OPTION_GROUP][$section_id][self::OPTION_NAME]['title'] );
+	}
+
+	/**
+	 * Assert that the settings menu HTML template is included.
+	 */
+	public function test_settings_menu_template_is_included() {
+		// Hide template output
+		$this->setOutputCallback(function() {});
+
+		$this->settings_menu->settings_page_html();
+
+		$included_files = get_included_files();
+		$this->assertContains( WPSM_PATH . 'templates/settings-page.php', $included_files );
+	}
+
+	/**
+	 * Assert that the setting section HTML template is included.
+	 */
+	public function test_setting_section_template_is_included() {
+		// Hide template output
+		$this->setOutputCallback(function() {});
+
+		$this->settings_menu->setting_section_html( array() );
+
+		$included_files = get_included_files();
+		$this->assertContains( WPSM_PATH . 'templates/setting-section.php', $included_files );
+	}
+
+	/**
+	 * Assert that the setting input HTML template is included.
+	 */
+	public function test_setting_input_template_is_included() {
+		// Hide template output
+		$this->setOutputCallback(function() {});
+
+		$this->settings_menu->setting_input_html();
+
+		$included_files = get_included_files();
+		$this->assertContains( WPSM_PATH . 'templates/setting-input.php', $included_files );
 	}
 }
