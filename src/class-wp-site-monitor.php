@@ -85,7 +85,7 @@ class WP_Site_Monitor {
 			$this->loader->add_action( 'admin_menu', $this->settings_menu, 'display_settings_page' );
 		}
 
-		if ( get_option( self::OPTION_NAME ) ) {
+		if ( get_option( self::OPTION_NAME, true ) ) {
 			$this->api = new API();
 
 			$this->loader->add_action( 'rest_api_init', $this->api, 'register_routes' );
