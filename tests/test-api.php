@@ -46,10 +46,32 @@ class APITest extends Test_Case {
 	}
 
 	/**
+	 * Assert that the register_routes method is registered to the rest_api_init hook when API is enabled.
+	 */
+	public function test_register_routes_is_registered_to_rest_api_init_hook() {
+		update_option( self::OPTION_NAME, true );
+
+		$plugin = new WP_Site_Monitor();
+
+		$this->assertNotFalse( has_action( 'rest_api_init', array( $plugin->api, 'register_routes' ) ) );
+	}
+
+	/**
+	 * Assert that the register_routes method is not registered to the rest_api_init hook when API is disabled.
+	 */
+	public function test_register_routes_is_not_registered_to_rest_api_init_hook_when_api_disabled() {
+		update_option( self::OPTION_NAME, false );
+
+		$plugin = new WP_Site_Monitor();
+
+		$this->assertFalse( has_action( 'rest_api_init', array( $plugin->api, 'register_routes' ) ) );
+	}
+
+	/**
 	 * Assert that REST API namespace for the plugin exists.
 	 */
 	public function test_rest_api_plugin_namespace_exists() {
-		$this->reload_plugin_api_init();
+		$this->api->register_routes();
 
 		$namespaces = $this->server->get_namespaces();
 
@@ -57,21 +79,10 @@ class APITest extends Test_Case {
 	}
 
 	/**
-	 * Assert that namespace does not exist if wp_site_monitor_enable setting is false.
-	 */
-	public function test_namespace_does_not_exist_if_wp_site_monitor_enable_is_false() {
-		$this->reload_plugin_api_init( false );
-
-		$namespaces = $this->server->get_namespaces();
-
-		$this->assertNotContains( self::API_NAMESPACE, $namespaces );
-	}
-
-	/**
 	 * Assert that WordPress version endpoint exists.
 	 */
 	public function test_wp_version_endpoint_exists() {
-		$this->reload_plugin_api_init();
+		$this->api->register_routes();
 
 		$routes = $this->server->get_routes();
 
@@ -102,16 +113,5 @@ class APITest extends Test_Case {
 	 */
 	public function filter_wp_rest_server_class() {
 		return 'Spy_REST_Server';
-	}
-
-	/**
-	 * Reload the plugin to make sure the correct wp_site_monitor_enable setting is applied.
-	 *
-	 * @param bool $enable
-	 */
-	protected function reload_plugin_api_init( $enable = true ) {
-		update_option( self::OPTION_NAME, $enable );
-		new WP_Site_Monitor();
-		do_action( 'rest_api_init' );
 	}
 }

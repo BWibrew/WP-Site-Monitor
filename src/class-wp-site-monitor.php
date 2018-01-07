@@ -40,6 +40,13 @@ class WP_Site_Monitor {
 	const OPTION_NAME = self::OPTION_GROUP . '_enable';
 
 	/**
+	 * Instance of API class.
+	 *
+	 * @var API
+	 */
+	public $api;
+
+	/**
 	 * Instance of Settings_Menu class.
 	 *
 	 * @var Settings_Menu
@@ -79,9 +86,9 @@ class WP_Site_Monitor {
 		}
 
 		if ( get_option( self::OPTION_NAME ) ) {
-			$api = new API();
+			$this->api = new API();
 
-			$this->loader->add_action( 'rest_api_init', $api, 'register_routes' );
+			$this->loader->add_action( 'rest_api_init', $this->api, 'register_routes' );
 		}
 
 		$this->loader->run();
