@@ -40,6 +40,13 @@ class WP_Site_Monitor {
 	const OPTION_NAME = self::OPTION_GROUP . '_enable';
 
 	/**
+	 * Instance of Settings_Menu class.
+	 *
+	 * @var Settings_Menu
+	 */
+	public $settings_menu;
+
+	/**
 	 * The loader that's responsible for registering all hooks and filters.
 	 *
 	 * @var Hook_Loader $loader Maintains and registers all hooks for the plugin.
@@ -65,10 +72,10 @@ class WP_Site_Monitor {
 	 */
 	public function init() {
 		if ( is_admin() ) {
-			$menu = new Settings_Menu();
+			$this->settings_menu = new Settings_Menu();
 
-			$this->loader->add_action( 'admin_init', $menu, 'init_settings' );
-			$this->loader->add_action( 'admin_menu', $menu, 'display_settings_page' );
+			$this->loader->add_action( 'admin_init', $this->settings_menu, 'init_settings' );
+			$this->loader->add_action( 'admin_menu', $this->settings_menu, 'display_settings_page' );
 		}
 
 		if ( get_option( self::OPTION_NAME ) ) {

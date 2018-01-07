@@ -8,6 +8,7 @@
 
 use Tests\Test_Case;
 use WPSiteMonitor\Settings_Menu;
+use WPSiteMonitor\WP_Site_Monitor;
 
 /**
  * Settings Page test case.
@@ -21,6 +22,30 @@ class SettingsMenuTest extends Test_Case {
 
 		$this->settings_menu = new Settings_Menu();
 		$this->log_in();
+	}
+
+	/**
+	 * Assert that the init_settings method is registered to the admin_init hook.
+	 */
+	public function test_init_settings_is_registered_to_admin_init_hook() {
+		// Make sure is_admin() returns true.
+		set_current_screen('index.php');
+
+		$plugin = new WP_Site_Monitor();
+
+		$this->assertNotFalse( has_action( 'admin_init', array( $plugin->settings_menu, 'init_settings' ) ) );
+	}
+
+	/**
+	 * Assert that the display_settings_page method is registered to the admin_menu hook.
+	 */
+	public function test_display_settings_page_is_registered_to_admin_menu_hook() {
+		// Make sure is_admin() returns true.
+		set_current_screen('index.php');
+
+		$plugin = new WP_Site_Monitor();
+
+		$this->assertNotFalse( has_action( 'admin_menu', array( $plugin->settings_menu, 'display_settings_page' ) ) );
 	}
 
 	/**
