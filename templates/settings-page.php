@@ -9,6 +9,7 @@
  */
 
 use WPSiteMonitor\WP_Site_Monitor;
+
 ?>
 
 <div class="wrap">
