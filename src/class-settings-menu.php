@@ -23,21 +23,21 @@ class Settings_Menu {
 	 * @since 1.0.0
 	 */
 	public function init_settings() {
-		register_setting( WP_Site_Monitor::OPTION_GROUP, WP_Site_Monitor::OPTION_NAME );
+		register_setting( WP_Site_Monitor::OPTION_GROUP, WP_Site_Monitor::OPTION_NAMES['enable'] );
 
 		add_settings_section(
-			WP_Site_Monitor::OPTION_NAME . '_section',
+			WP_Site_Monitor::OPTION_NAMES['enable'] . '_section',
 			__( 'Enable/Disable WP Site Monitor', 'wp-site-monitor' ),
 			array( $this, 'setting_section_html' ),
 			WP_Site_Monitor::OPTION_GROUP
 		);
 
 		add_settings_field(
-			WP_Site_Monitor::OPTION_NAME,
+			WP_Site_Monitor::OPTION_NAMES['enable'],
 			__( 'Enable WP Site Monitor', 'wp-site-monitor' ),
 			array( $this, 'setting_input_html' ),
 			WP_Site_Monitor::OPTION_GROUP,
-			WP_Site_Monitor::OPTION_NAME . '_section'
+			WP_Site_Monitor::OPTION_NAMES['enable'] . '_section'
 		);
 	}
 

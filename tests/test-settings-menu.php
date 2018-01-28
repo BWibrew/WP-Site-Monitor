@@ -70,12 +70,12 @@ class SettingsMenuTest extends Test_Case {
 		global $new_whitelist_options, $wp_settings_sections, $wp_settings_fields;
 		$this->settings_menu->init_settings();
 
-		$section_id = self::OPTION_NAME . '_section';
-		$this->assertContains(self::OPTION_NAME, $new_whitelist_options[self::OPTION_GROUP] );
+		$section_id = self::OPTION_NAMES['enable'] . '_section';
+		$this->assertContains(self::OPTION_NAMES['enable'], $new_whitelist_options[self::OPTION_GROUP] );
 		$this->assertEquals( $section_id, $wp_settings_sections[self::OPTION_GROUP][$section_id]['id'] );
 		$this->assertEquals( 'Enable/Disable WP Site Monitor', $wp_settings_sections[self::OPTION_GROUP][$section_id]['title'] );
-		$this->assertEquals( self::OPTION_NAME, $wp_settings_fields[self::OPTION_GROUP][$section_id][self::OPTION_NAME]['id'] );
-		$this->assertEquals( 'Enable WP Site Monitor', $wp_settings_fields[self::OPTION_GROUP][$section_id][self::OPTION_NAME]['title'] );
+		$this->assertEquals( self::OPTION_NAMES['enable'], $wp_settings_fields[self::OPTION_GROUP][$section_id][self::OPTION_NAMES['enable']]['id'] );
+		$this->assertEquals( 'Enable WP Site Monitor', $wp_settings_fields[self::OPTION_GROUP][$section_id][self::OPTION_NAMES['enable']]['title'] );
 	}
 
 	/**
