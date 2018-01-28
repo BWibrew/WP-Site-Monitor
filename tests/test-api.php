@@ -118,8 +118,23 @@ class APITest extends Test_Case {
 	public function test_plugins_list_is_returned() {
 		$plugins = $this->api->get_plugins();
 
-		$this->assertArrayHasKey( 'akismet/akismet.php', $plugins );
 		$this->assertArrayHasKey( 'hello.php', $plugins );
+		$this->assertArrayHasKey( 'akismet/akismet.php', $plugins );
+	}
+
+	/**
+	 * Assert that 'plugins' endpoint returns plugin activation status.
+	 */
+	public function test_plugins_list_contains_activation_status() {
+		activate_plugins( array( 'akismet/akismet.php' ) );
+
+		$plugins = $this->api->get_plugins();
+
+		$this->assertArrayHasKey( 'Active', $plugins['hello.php'] );
+		$this->assertArrayHasKey( 'Active', $plugins['akismet/akismet.php'] );
+
+		$this->assertFalse($plugins['hello.php']['Active']);
+		$this->assertTrue($plugins['akismet/akismet.php']['Active']);
 	}
 
 	/**

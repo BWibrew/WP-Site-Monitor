@@ -69,7 +69,14 @@ class API extends WP_REST_Controller {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
-		return get_plugins();
+		$plugins        = get_plugins();
+		$active_plugins = get_option( 'active_plugins' );
+
+		foreach ( $plugins as $name => &$data ) {
+			$data['Active'] = in_array( $name, $active_plugins, true ) ? true : false;
+		}
+
+		return $plugins;
 	}
 
 	/**
