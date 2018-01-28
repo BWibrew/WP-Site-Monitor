@@ -26,15 +26,23 @@ class API extends WP_REST_Controller {
 	 * @since 1.0.0
 	 */
 	public function register_routes() {
-		$version   = '1';
-		$namespace = 'wp-site-monitor/v' . $version;
-		$endpoint  = 'wp-version';
+		$namespace = 'wp-site-monitor/v1';
 
 		register_rest_route(
-			$namespace, '/' . $endpoint, array(
+			$namespace, '/wp-version', array(
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_wp_version' ),
+					'permission_callback' => array( $this, 'check_permissions' ),
+				),
+			)
+		);
+
+		register_rest_route(
+			$namespace, '/plugins', array(
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_plugins' ),
 					'permission_callback' => array( $this, 'check_permissions' ),
 				),
 			)
@@ -51,6 +59,17 @@ class API extends WP_REST_Controller {
 		global $wp_version;
 
 		return $wp_version;
+	}
+
+	/**
+	 * Get the currently installed plugins.
+	 */
+	public function get_plugins() {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		return get_plugins();
 	}
 
 	/**

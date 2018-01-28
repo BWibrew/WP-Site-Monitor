@@ -102,9 +102,30 @@ class APITest extends Test_Case {
 	}
 
 	/**
+	 * Assert that WordPress plugins endpoint exists.
+	 */
+	public function test_plugins_endpoint_exists() {
+		$this->api->register_routes();
+
+		$routes = $this->server->get_routes();
+
+		$this->assertArrayHasKey( '/' . self::API_NAMESPACE . '/plugins', $routes );
+	}
+
+	/**
+	 * Assert that 'plugins' endpoint returns a list of installed plugins.
+	 */
+	public function test_plugins_list_is_returned() {
+		$plugins = $this->api->get_plugins();
+
+		$this->assertArrayHasKey( 'akismet/akismet.php', $plugins );
+		$this->assertArrayHasKey( 'hello.php', $plugins );
+	}
+
+	/**
 	 * Assert that 'wp-version' endpoint requires authentication.
 	 */
-	public function test_wp_version_requires_authentication() {
+	public function test_api_requires_authentication() {
 		$this->assertFalse( $this->api->check_permissions() );
 	}
 

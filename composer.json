@@ -28,10 +28,8 @@
         }
     },
     "scripts": {
-        "lint": [
-          "vendor/bin/phpcs"
-        ],
         "test": [
+          "vendor/bin/phpcs",
           "vendor/bin/phpunit"
         ],
         "install-tests": [
