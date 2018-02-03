@@ -12,6 +12,8 @@ use WPSiteMonitor\WP_Site_Monitor;
 
 ?>
 <input type="checkbox"
-	id="<?php echo esc_attr( WP_Site_Monitor::OPTION_NAMES['enable'] ); ?>"
-	name="<?php echo esc_attr( WP_Site_Monitor::OPTION_NAMES['enable'] ); ?>"
-	<?php checked( get_option( WP_Site_Monitor::OPTION_NAMES['enable'], true ), 1 ); ?> value="1">
+	id="<?php echo esc_attr( WP_Site_Monitor::OPTION_NAMES['wp_version'] ); ?>"
+	name="<?php echo esc_attr( WP_Site_Monitor::OPTION_NAMES['wp_version'] ); ?>"
+	<?php checked( get_option( WP_Site_Monitor::OPTION_NAMES['wp_version'], true ), 1 ); ?>
+	value="1"
+>

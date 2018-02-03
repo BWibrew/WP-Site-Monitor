@@ -30,16 +30,39 @@ class Settings_Menu {
 		add_settings_section(
 			WP_Site_Monitor::OPTION_NAMES['enable'] . '_section',
 			__( 'Enable/Disable WP Site Monitor', 'wp-site-monitor' ),
-			array( $this, 'setting_section_html' ),
+			array( $this, 'setting_section_enable_html' ),
+			WP_Site_Monitor::OPTION_GROUP
+		);
+
+		add_settings_section(
+			WP_Site_Monitor::OPTION_GROUP . '_endpoints_section',
+			__( 'API endpoints', 'wp-site-monitor' ),
+			array( $this, 'setting_section_endpoints_html' ),
 			WP_Site_Monitor::OPTION_GROUP
 		);
 
 		add_settings_field(
 			WP_Site_Monitor::OPTION_NAMES['enable'],
 			__( 'Enable WP Site Monitor', 'wp-site-monitor' ),
-			array( $this, 'setting_input_html' ),
+			array( $this, 'setting_enable_input_html' ),
 			WP_Site_Monitor::OPTION_GROUP,
 			WP_Site_Monitor::OPTION_NAMES['enable'] . '_section'
+		);
+
+		add_settings_field(
+			WP_Site_Monitor::OPTION_NAMES['wp_version'],
+			__( 'Enable wp_version endpoint', 'wp-site-monitor' ),
+			array( $this, 'setting_wp_version_input_html' ),
+			WP_Site_Monitor::OPTION_GROUP,
+			WP_Site_Monitor::OPTION_GROUP . '_endpoints_section'
+		);
+
+		add_settings_field(
+			WP_Site_Monitor::OPTION_NAMES['plugins'],
+			__( 'Enable plugins endpoint', 'wp-site-monitor' ),
+			array( $this, 'setting_plugins_input_html' ),
+			WP_Site_Monitor::OPTION_GROUP,
+			WP_Site_Monitor::OPTION_GROUP . '_endpoints_section'
 		);
 	}
 
@@ -72,22 +95,51 @@ class Settings_Menu {
 	}
 
 	/**
-	 * Form text.
+	 * Enable setting form text.
 	 *
 	 * @param array $args Arguments passed into add_settings_section.
 	 *
 	 * @since 1.0.0
 	 */
-	public function setting_section_html( $args ) {
-		require_once WPSM_PATH . 'templates/setting-section.php';
+	public function setting_section_enable_html( $args ) {
+		require_once WPSM_PATH . 'templates/setting-section-enable.php';
 	}
 
 	/**
-	 * Form inputs.
+	 * Endpoints setting form text.
+	 *
+	 * @param array $args Arguments passed into add_settings_section.
 	 *
 	 * @since 1.0.0
 	 */
-	public function setting_input_html() {
-		require_once WPSM_PATH . 'templates/setting-input.php';
+	public function setting_section_endpoints_html( $args ) {
+		require_once WPSM_PATH . 'templates/setting-section-endpoints.php';
+	}
+
+	/**
+	 * Enable setting form input.
+	 *
+	 * @since 1.0.0
+	 */
+	public function setting_enable_input_html() {
+		require_once WPSM_PATH . 'templates/setting-input-enable.php';
+	}
+
+	/**
+	 * WP_version setting form input.
+	 *
+	 * @since 1.0.0
+	 */
+	public function setting_wp_version_input_html() {
+		require_once WPSM_PATH . 'templates/setting-input-wp-version.php';
+	}
+
+	/**
+	 * Plugins setting form input.
+	 *
+	 * @since 1.0.0
+	 */
+	public function setting_plugins_input_html() {
+		require_once WPSM_PATH . 'templates/setting-input-plugins.php';
 	}
 }
