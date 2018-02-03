@@ -25,22 +25,23 @@ class APITest extends Test_Case {
 	 */
 	protected $api;
 
+	/**
+	 * @var bool
+	 */
+	protected $teardown_spy_server = false;
+
 	public function setUp() {
 		parent::setUp();
 
 		$this->api = new API();
-
-		// Reset REST server to ensure only our routes are registered
-		$GLOBALS['wp_rest_server'] = null;
-		add_filter( 'wp_rest_server_class', array( $this, 'filter_wp_rest_server_class' ) );
-		$this->server = rest_get_server();
-		remove_filter( 'wp_rest_server_class', array( $this, 'filter_wp_rest_server_class' ) );
 	}
 
 	function tearDown() {
-		// Remove our temporary spy server
-		$GLOBALS['wp_rest_server'] = null;
-		unset( $_REQUEST['_wpnonce'] );
+		if ( $this->teardown_spy_server ) {
+			// Remove our temporary spy server
+			$GLOBALS['wp_rest_server'] = null;
+			unset( $_REQUEST['_wpnonce'] );
+		}
 
 		parent::tearDown();
 	}
@@ -73,6 +74,7 @@ class APITest extends Test_Case {
 	 * Assert that REST API namespace for the plugin exists.
 	 */
 	public function test_rest_api_plugin_namespace_exists() {
+		$this->use_rest_spy_server();
 		$this->api->register_routes();
 
 		$namespaces = $this->server->get_namespaces();
@@ -84,11 +86,26 @@ class APITest extends Test_Case {
 	 * Assert that WordPress version endpoint exists.
 	 */
 	public function test_wp_version_endpoint_exists() {
+		$this->use_rest_spy_server();
 		$this->api->register_routes();
 
 		$routes = $this->server->get_routes();
 
 		$this->assertArrayHasKey( '/' . self::API_NAMESPACE . '/wp-version', $routes );
+	}
+
+	/**
+	 * Assert that the 'wp-version' endpoint is not available when disabled.
+	 */
+	public function test_wp_version_endpoint_not_available_when_disabled() {
+		update_option( self::OPTION_NAMES['wp_version'], 0 );
+		$this->use_rest_spy_server();
+
+		$this->api->register_routes();
+
+		$routes = $this->server->get_routes();
+
+		$this->assertArrayNotHasKey( '/' . self::API_NAMESPACE . '/wp-version', $routes );
 	}
 
 	/**
@@ -105,11 +122,26 @@ class APITest extends Test_Case {
 	 * Assert that WordPress plugins endpoint exists.
 	 */
 	public function test_plugins_endpoint_exists() {
+		$this->use_rest_spy_server();
 		$this->api->register_routes();
 
 		$routes = $this->server->get_routes();
 
 		$this->assertArrayHasKey( '/' . self::API_NAMESPACE . '/plugins', $routes );
+	}
+
+	/**
+	 * Assert that the plugins endpoint is not available when disabled.
+	 */
+	public function test_plugins_endpoint_not_available_when_disabled() {
+		update_option( self::OPTION_NAMES['plugins'], 0 );
+		$this->use_rest_spy_server();
+
+		$this->api->register_routes();
+
+		$routes = $this->server->get_routes();
+
+		$this->assertArrayNotHasKey( '/' . self::API_NAMESPACE . '/plugins', $routes );
 	}
 
 	/**
@@ -151,5 +183,17 @@ class APITest extends Test_Case {
 	 */
 	public function filter_wp_rest_server_class() {
 		return 'Spy_REST_Server';
+	}
+
+	/**
+	 * Reset REST server to ensure only our routes are registered.
+	 */
+	protected function use_rest_spy_server() {
+		$GLOBALS['wp_rest_server'] = null;
+		add_filter( 'wp_rest_server_class', array( $this, 'filter_wp_rest_server_class' ) );
+		$this->server = rest_get_server();
+		remove_filter( 'wp_rest_server_class', array( $this, 'filter_wp_rest_server_class' ) );
+
+		$this->teardown_spy_server = true;
 	}
 }

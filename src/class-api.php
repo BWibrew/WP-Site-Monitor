@@ -21,32 +21,42 @@ use WP_REST_Server;
 class API extends WP_REST_Controller {
 
 	/**
+	 * API namespace.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+	protected $namespace = 'wp-site-monitor/v1';
+
+	/**
 	 * Register the routes for the objects of the controller.
 	 *
 	 * @since 1.0.0
 	 */
 	public function register_routes() {
-		$namespace = 'wp-site-monitor/v1';
+		if ( get_option( WP_Site_Monitor::OPTION_NAMES['wp_version'], true ) ) {
+			register_rest_route(
+				$this->namespace, '/wp-version', array(
+					array(
+						'methods'             => WP_REST_Server::READABLE,
+						'callback'            => array( $this, 'get_wp_version' ),
+						'permission_callback' => array( $this, 'check_permissions' ),
+					),
+				)
+			);
+		}
 
-		register_rest_route(
-			$namespace, '/wp-version', array(
-				array(
-					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_wp_version' ),
-					'permission_callback' => array( $this, 'check_permissions' ),
-				),
-			)
-		);
-
-		register_rest_route(
-			$namespace, '/plugins', array(
-				array(
-					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_plugins' ),
-					'permission_callback' => array( $this, 'check_permissions' ),
-				),
-			)
-		);
+		if ( get_option( WP_Site_Monitor::OPTION_NAMES['plugins'], true ) ) {
+			register_rest_route(
+				$this->namespace, '/plugins', array(
+					array(
+						'methods'             => WP_REST_Server::READABLE,
+						'callback'            => array( $this, 'get_plugins' ),
+						'permission_callback' => array( $this, 'check_permissions' ),
+					),
+				)
+			);
+		}
 	}
 
 	/**
