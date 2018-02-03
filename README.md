@@ -5,14 +5,50 @@
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/BWibrew/WP-Site-Monitor.svg?style=flat-square)](https://scrutinizer-ci.com/g/BWibrew/WP-Site-Monitor)
 [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/BWibrew/WP-Site-Monitor.svg?style=flat-square)](https://scrutinizer-ci.com/g/BWibrew/WP-Site-Monitor)
 
+All additional endpoints are under the `wp-site-monitor/v1/` namespace.
+e.g. `https://example.com/wp-json/wp-site-monitor/v1/wp-version`
+
 ## Additional endpoints
-All additional endpoints are under the `wp-site-monitor/v1` namespace.
+- `wp-version` returns the current version of wordpress as a string.
+      
+  Example output: `"4.9.2"`
+- `plugins` returns a JSON object listing installed plugins with the plugin details.
+  
+  Example output:
+  ```json
+  {
+      "wp-super-cache/wp-cache.php": {
+          "Name": "WP Super Cache",
+          "PluginURI": "https://wordpress.org/plugins/wp-super-cache/",
+          "Version": "1.5.9",
+          "Description": "Very fast caching plugin for WordPress.",
+          "Author": "Automattic",
+          "AuthorURI": "https://automattic.com/",
+          "TextDomain": "wp-super-cache",
+          "DomainPath": "",
+          "Network": false,
+          "Title": "WP Super Cache",
+          "AuthorName": "Automattic",
+          "Active": true
+      },
+      "wordpress-seo/wp-seo.php": {
+          "Name": "Yoast SEO",
+          "PluginURI": "https://yoa.st/1uj",
+          "Version": "6.1.1",
+          "Description": "The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.",
+          "Author": "Team Yoast",
+          "AuthorURI": "https://yoa.st/1uk",
+          "TextDomain": "wordpress-seo",
+          "DomainPath": "/languages/",
+          "Network": false,
+          "Title": "Yoast SEO",
+          "AuthorName": "Team Yoast",
+          "Active": true
+      }
+  }
+  ```
 
-### `/wp-version`
-This endpoint returns the current version of wordpress as a string.
-
-### `/plugins`
-This endpoint will return a JSON object listing installed plugins.
+Options are provided in the WP Site Monitor settings menu to toggle individual endpoints.
 
 ## Installation
 
