@@ -24,6 +24,7 @@ class SettingsMenuTest extends Test_Case {
 		parent::setUp();
 
 		$this->settings_menu = new Settings_Menu();
+		$this->settings_menu->init_settings();
 		$this->log_in();
 	}
 
@@ -64,21 +65,6 @@ class SettingsMenuTest extends Test_Case {
 	}
 
 	/**
-	 * Assert that the enable/disable toggle is registered with the settings API.
-	 */
-	public function test_enable_option_is_created() {
-		global $new_whitelist_options, $wp_settings_sections, $wp_settings_fields;
-		$this->settings_menu->init_settings();
-
-		$section_id = self::OPTION_NAMES['enable'] . '_section';
-		$this->assertContains(self::OPTION_NAMES['enable'], $new_whitelist_options[self::OPTION_GROUP] );
-		$this->assertEquals( $section_id, $wp_settings_sections[self::OPTION_GROUP][$section_id]['id'] );
-		$this->assertEquals( 'Enable/Disable WP Site Monitor', $wp_settings_sections[self::OPTION_GROUP][$section_id]['title'] );
-		$this->assertEquals( self::OPTION_NAMES['enable'], $wp_settings_fields[self::OPTION_GROUP][$section_id][self::OPTION_NAMES['enable']]['id'] );
-		$this->assertEquals( 'Enable WP Site Monitor', $wp_settings_fields[self::OPTION_GROUP][$section_id][self::OPTION_NAMES['enable']]['title'] );
-	}
-
-	/**
 	 * Assert that the settings menu HTML template is included.
 	 */
 	public function test_settings_menu_template_is_included() {
@@ -98,6 +84,7 @@ class SettingsMenuTest extends Test_Case {
 		// Hide template output
 		$this->setOutputCallback(function() {});
 
+		$this->settings_menu->settings_page_html();
 		$this->settings_menu->setting_section_html( array() );
 
 		$included_files = get_included_files();
@@ -115,5 +102,19 @@ class SettingsMenuTest extends Test_Case {
 
 		$included_files = get_included_files();
 		$this->assertContains( WPSM_PATH . 'templates/setting-input.php', $included_files );
+	}
+
+	/**
+	 * Assert that the enable/disable toggle is registered with the settings API.
+	 */
+	public function test_enable_option_is_created() {
+		global $new_whitelist_options, $wp_settings_sections, $wp_settings_fields;
+
+		$section_id = self::OPTION_NAMES['enable'] . '_section';
+		$this->assertContains(self::OPTION_NAMES['enable'], $new_whitelist_options[self::OPTION_GROUP] );
+		$this->assertEquals( $section_id, $wp_settings_sections[self::OPTION_GROUP][$section_id]['id'] );
+		$this->assertEquals( 'Enable/Disable WP Site Monitor', $wp_settings_sections[self::OPTION_GROUP][$section_id]['title'] );
+		$this->assertEquals( self::OPTION_NAMES['enable'], $wp_settings_fields[self::OPTION_GROUP][$section_id][self::OPTION_NAMES['enable']]['id'] );
+		$this->assertEquals( 'Enable WP Site Monitor', $wp_settings_fields[self::OPTION_GROUP][$section_id][self::OPTION_NAMES['enable']]['title'] );
 	}
 }
