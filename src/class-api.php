@@ -73,6 +73,9 @@ class API extends WP_REST_Controller {
 
 	/**
 	 * Get the currently installed plugins.
+	 *
+	 * @return array
+	 * @since 1.0.0
 	 */
 	public function get_plugins() {
 		if ( ! function_exists( 'get_plugins' ) ) {

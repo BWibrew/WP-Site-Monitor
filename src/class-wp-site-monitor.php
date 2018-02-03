@@ -47,6 +47,7 @@ class WP_Site_Monitor {
 	 * Instance of API class.
 	 *
 	 * @var API
+	 * @since 1.0.0
 	 */
 	public $api;
 
@@ -54,6 +55,7 @@ class WP_Site_Monitor {
 	 * Instance of Settings_Menu class.
 	 *
 	 * @var Settings_Menu
+	 * @since 1.0.0
 	 */
 	public $settings_menu;
 
