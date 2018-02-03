@@ -38,7 +38,9 @@ class WP_Site_Monitor {
 	 * @since 1.0.0
 	 */
 	const OPTION_NAMES = array(
-		'enable' => self::OPTION_GROUP . '_enable',
+		'enable'     => self::OPTION_GROUP . '_enable',
+		'wp_version' => self::OPTION_GROUP . '_wp_version',
+		'plugins'    => self::OPTION_GROUP . '_plugins',
 	);
 
 	/**
@@ -102,7 +104,9 @@ class WP_Site_Monitor {
 	 * @since 1.0.0
 	 */
 	public static function deactivate() {
-		unregister_setting( 'wp_site_monitor', 'wp_site_monitor_enable' );
+		unregister_setting( self::OPTION_GROUP, self::OPTION_NAMES['enable'] );
+		unregister_setting( self::OPTION_GROUP, self::OPTION_NAMES['wp_version'] );
+		unregister_setting( self::OPTION_GROUP, self::OPTION_NAMES['plugins'] );
 	}
 
 	/**
@@ -111,6 +115,8 @@ class WP_Site_Monitor {
 	 * @since 1.0.0
 	 */
 	public static function uninstall() {
-		delete_option( 'wp_site_monitor_enable' );
+		delete_option( self::OPTION_NAMES['enable'] );
+		delete_option( self::OPTION_NAMES['wp_version'] );
+		delete_option( self::OPTION_NAMES['plugins'] );
 	}
 }

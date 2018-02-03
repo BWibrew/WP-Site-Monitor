@@ -15,9 +15,13 @@ use WP_UnitTestCase;
  */
 class Test_Case extends WP_UnitTestCase {
 
-	const OPTION_NAMES = array( 'enable' => 'wp_site_monitor_enable' );
 	const OPTION_GROUP = 'wp_site_monitor';
 	const API_NAMESPACE = 'wp-site-monitor/v1';
+	const OPTION_NAMES = array(
+		'enable'     => 'wp_site_monitor_enable',
+		'wp_version' => 'wp_site_monitor_wp_version',
+		'plugins'    => 'wp_site_monitor_plugins',
+	);
 
 	/**
 	 * Assert that the plugin is being loaded by WordPress.

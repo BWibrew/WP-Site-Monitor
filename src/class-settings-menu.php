@@ -24,6 +24,8 @@ class Settings_Menu {
 	 */
 	public function init_settings() {
 		register_setting( WP_Site_Monitor::OPTION_GROUP, WP_Site_Monitor::OPTION_NAMES['enable'] );
+		register_setting( WP_Site_Monitor::OPTION_GROUP, WP_Site_Monitor::OPTION_NAMES['wp_version'] );
+		register_setting( WP_Site_Monitor::OPTION_GROUP, WP_Site_Monitor::OPTION_NAMES['plugins'] );
 
 		add_settings_section(
 			WP_Site_Monitor::OPTION_NAMES['enable'] . '_section',
