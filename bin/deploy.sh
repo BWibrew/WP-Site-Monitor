@@ -3,8 +3,9 @@
 # Based on https://gist.github.com/scribu/1125050
 
 # args
-MSG=${1-'deploy from git'}
-BRANCH=${2-'trunk'}
+SHORT_HASH=$(git rev-parse --verify --short HEAD)
+BRANCH=${1-'trunk'}
+MSG=${2-'Deploy '$SHORT_HASH' from git'}
 
 # paths
 SRC_DIR=$(git rev-parse --show-toplevel)
