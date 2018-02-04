@@ -50,6 +50,7 @@ class APITest extends Test_Case {
 	 * Assert that the register_routes method is registered to the rest_api_init hook when API is enabled.
 	 */
 	public function test_register_routes_is_registered_to_rest_api_init_hook() {
+		$this->use_rest_spy_server();
 		update_option( self::OPTION_NAMES['enable'], 1 );
 
 		$plugin = new WP_Site_Monitor();
@@ -62,6 +63,7 @@ class APITest extends Test_Case {
 	 * Assert that the register_routes method is not registered to the rest_api_init hook when API is disabled.
 	 */
 	public function test_register_routes_is_not_registered_to_rest_api_init_hook_when_api_disabled() {
+		$this->use_rest_spy_server();
 		update_option( self::OPTION_NAMES['enable'], 0 );
 
 		$plugin = new WP_Site_Monitor();
