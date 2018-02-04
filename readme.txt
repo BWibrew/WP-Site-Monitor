@@ -4,7 +4,7 @@ Tags: rest, api, rest-api, admin, remote administration
 Requires at least: 4.7
 Tested up to: 4.9
 Requires PHP: 5.6
-Stable tag: 0.1.0
+Stable tag: 1.0.0
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
